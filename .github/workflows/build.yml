@@ -10,16 +10,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-24.04
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y apk-tools
 
       - name: Setup Go
         uses: actions/setup-go@v5
@@ -32,13 +28,13 @@ jobs:
           ./build.sh \
             --arch aarch64_generic \
             --variant base \
-            --format apk
+            --binary-only \
+            --output dist
 
-      - name: Upload package
+      - name: Upload binary
         uses: actions/upload-artifact@v4
         with:
-          name: forkop-msm8916
-          path: dist/*.apk
+          name: sing-box-forkop-msm8916-base
+          path: dist/build/arm64/base/sing-box
           if-no-files-found: error
           retention-days: 14
-          
