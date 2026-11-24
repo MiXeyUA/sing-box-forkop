@@ -16,6 +16,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Fetch upstream tags
+        run: |
+          git fetch --force --tags \
+            https://github.com/ushan0v/sing-box-forkop.git
+
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
